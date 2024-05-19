@@ -11,7 +11,9 @@ func GetRouter() *http.ServeMux {
 
 	router.HandleFunc("/", handlers.IndexHandler)
 
-	router.HandleFunc("GET /projects", handlers.ProjectsHandler)
+	router.HandleFunc("GET /projects", handlers.GetProjects)
+
+	router.HandleFunc("POST /projects", handlers.UpdateProjects)
 
 	return router
 }
