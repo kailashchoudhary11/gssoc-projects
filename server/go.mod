@@ -2,9 +2,24 @@ module github.com/kailashchoudhary11/server
 
 go 1.22.2
 
-require github.com/lpernett/godotenv v0.0.0-20230527005122-0de1d4c5ef5e
+require (
+	github.com/lpernett/godotenv v0.0.0-20230527005122-0de1d4c5ef5e
+	gorm.io/driver/postgres v1.5.7
+	gorm.io/driver/sqlite v1.5.5
+	gorm.io/gorm v1.25.10
+)
 
-require golang.org/x/net v0.25.0 // indirect
+require (
+	github.com/jackc/pgpassfile v1.0.0 // indirect
+	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
+	github.com/jackc/pgx/v5 v5.4.3 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/mattn/go-sqlite3 v1.14.17 // indirect
+	golang.org/x/crypto v0.23.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
+	golang.org/x/text v0.15.0 // indirect
+)
 
 require (
 	github.com/google/go-github/v62 v62.0.0

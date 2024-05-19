@@ -11,6 +11,7 @@ import (
 func init() {
 	initializers.LoadEnvVariables()
 	initializers.LoadGithubClient()
+	initializers.ConnectToDB()
 }
 
 func main() {
