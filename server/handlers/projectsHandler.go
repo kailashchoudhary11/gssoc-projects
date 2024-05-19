@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -11,6 +10,7 @@ import (
 )
 
 func ProjectsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var projects []models.Project
 	res := initializers.DATABASE.Find(&projects)
 	if res.Error != nil {
@@ -18,5 +18,4 @@ func ProjectsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(projects)
-	fmt.Fprint(w, projects)
 }
