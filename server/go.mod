@@ -4,8 +4,8 @@ go 1.22.2
 
 require (
 	github.com/lpernett/godotenv v0.0.0-20230527005122-0de1d4c5ef5e
+	golang.org/x/oauth2 v0.20.0
 	gorm.io/driver/postgres v1.5.7
-	gorm.io/driver/sqlite v1.5.5
 	gorm.io/gorm v1.25.10
 )
 
@@ -15,9 +15,7 @@ require (
 	github.com/jackc/pgx/v5 v5.4.3 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
-	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/text v0.15.0 // indirect
 )
 

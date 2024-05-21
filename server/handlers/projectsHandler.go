@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -23,16 +22,7 @@ func GetProjects(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateProjects(w http.ResponseWriter, r *http.Request) {
-	var projects []models.Project
-	res := initializers.DATABASE.Find(&projects)
-	if res.Error != nil {
-		log.Fatal("Unable to fetch projects")
-	}
-	for _, project := range projects {
-		project.LastPRMergedAt = services.LatestMergedPRTime(project.GithubLink)
-		fmt.Println("The latest merged PR time is", project.LastPRMergedAt)
-		initializers.DATABASE.Save(project)
-	}
 	w.Header().Set("Content-Type", "application/json")
+	projects := services.UpdateProjects(nil)
 	json.NewEncoder(w).Encode(projects)
 }
