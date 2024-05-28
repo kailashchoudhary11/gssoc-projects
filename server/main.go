@@ -16,6 +16,7 @@ func init() {
 
 func main() {
 	port := os.Getenv("PORT")
+	port = "8000"
 	addr := ":" + port
 	fmt.Println("Running server at Port", port)
 	server := api.NewAPIServer(addr)
