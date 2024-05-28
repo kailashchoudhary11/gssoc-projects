@@ -24,7 +24,7 @@ jobs:
         with:
           app-name: golang-${{ github.ref_name }}
           service-env: "PORT=8080"
-          service-ports: "8080:http"
-          service-routes: "/:8080"
+          service-ports: "8000:http"
+          service-routes: "/:8000"
           skip-cache: true
-        working-directory: server
+          git-workdir: server
