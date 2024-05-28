@@ -28,3 +28,4 @@ jobs:
           service-routes: "/:8000"
           skip-cache: true
           git-workdir: server
+          service-instance-type: free
