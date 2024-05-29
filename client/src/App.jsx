@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import GitHubLogin from './GitHubLogin';
+import Cards from './project-section/Cards';
 
 function App() {
   const [projects, setProjects] = useState([])
@@ -17,6 +18,7 @@ function App() {
   return (
     <div>
       <GitHubLogin />
+      <Cards />
       {
         projects.map(({ ID, project_link, project_name, technology_used }) => {
           return (
