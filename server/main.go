@@ -9,14 +9,13 @@ import (
 )
 
 func init() {
-	initializers.LoadEnvVariables()
 	initializers.LoadGithubClient()
 	initializers.ConnectToDB()
+	// initializers.LoadEnvVariables()
 }
 
 func main() {
 	port := os.Getenv("PORT")
-	port = "8000"
 	addr := ":" + port
 	fmt.Println("Running server at Port", port)
 	server := api.NewAPIServer(addr)

@@ -17,7 +17,7 @@ import (
 var GithubOAuthConfig *oauth2.Config
 
 func init() {
-	initializers.LoadEnvVariables()
+	// initializers.LoadEnvVariables()
 	GithubOAuthConfig = &oauth2.Config{
 		ClientID:     os.Getenv("CLIENT_ID"),
 		ClientSecret: os.Getenv("CLIENT_SECRET"),
