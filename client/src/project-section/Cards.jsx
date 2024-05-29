@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback } from "react";
 
 const Cards = () => {
   const [data, setData] = useState([]);
@@ -56,32 +56,25 @@ const Cards = () => {
     { name: 'Sequelize', style: 'bg-purple-400 text-purple-800' },
     { name: 'Redux', style: 'bg-green-400 text-green-800' },
   ];
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const response = await fetch('https://golang-main-symbiosis-uni-00b7344c.koyeb.app/projects/all');
       if (!response.ok) {
         throw new Error('Something went wrong');
       }
       const fetchedData = await response.json();
-      const formattedData = fetchedData.map(project => ({
-        ...project,
-        CreatedAt: new Date(project.CreatedAt).toLocaleString(),
-        UpdatedAt: new Date(project.UpdatedAt).toLocaleString(),
-        LastPRMergedAt: new Date(project.LastPRMergedAt).toLocaleString(),
-      }));
-
-      console.log(formattedData);
-      setData(formattedData);
+      fetchedData.sort((a, b) => new Date(b.LastPRMergedAt) - new Date(a.LastPRMergedAt));
+      console.log("Sorted Data: ",fetchedData);
+      setData(fetchedData);
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
-  };
-
+  }, []); 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [data, fetchData]);
 
   return (
     <div className="container px-5 py-24 mx-auto">
@@ -93,19 +86,13 @@ const Cards = () => {
             <div key={project.ID} className="border border-amber-600 p-4 rounded-lg shadow-lg h-fit overflow-auto">
               <h1 className="text-xl font-semibold mb-2">{project.project_name}</h1>
               <p className="text-gray-600 mb-1">
-                <span className="font-bold">Created At:</span> {project.CreatedAt}
-              </p>
-              <p className="text-gray-600 mb-1">
                 <span className="font-bold">Open Issues:</span> {project.OpenIssueCount}
               </p>
               <p className="text-gray-600 mb-1">
-                <span className="font-bold">Last PR Merged At:</span> {project.LastPRMergedAt}
+                <span className="font-bold">Last PR Merged At:</span> {new Date(project.LastPRMergedAt).toLocaleString()}
               </p>
               <p className="text-gray-600 mb-1">
                 <span className="font-bold">Open PR Count:</span> {project.OpenPRCount}
-              </p>
-              <p className="text-gray-600 mb-4">
-                <span className="font-bold">Updated At:</span> {project.UpdatedAt}
               </p>
               <p>
                 {badgeStyles.map((badge, index) => {
