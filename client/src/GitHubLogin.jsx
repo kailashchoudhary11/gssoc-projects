@@ -14,7 +14,7 @@ const GitHubLogin = () => {
 
   const initiateGitHubOAuth = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/github/login');
+      const response = await axios.get('https://golang-main-symbiosis-uni-00b7344c.koyeb.app/github/login');
       const { url } = response.data;
       // Open the GitHub OAuth consent screen in a new window or tab
       window.open(url);
@@ -25,7 +25,7 @@ const GitHubLogin = () => {
 
   const exchangeCodeForToken = async (code) => {
     try {
-      const response = await axios.get(`http://localhost:8000/github/callback?code=${code}`);
+      const response = await axios.get(`https://golang-main-symbiosis-uni-00b7344c.koyeb.app/callback?code=${code}`);
       // Handle the response from the backend (access token or user information)
       const { token, user } = response.data;
       // Store the token or user information in the state or local storage
