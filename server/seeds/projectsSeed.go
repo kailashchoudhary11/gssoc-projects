@@ -17,7 +17,7 @@ func init() {
 }
 
 func main() {
-	dataFile, err := os.Open("./data/projects.json")
+	dataFile, err := os.Open("./data/updatedProjects.json")
 	if err != nil {
 		log.Fatal("Could not open data file")
 	}
