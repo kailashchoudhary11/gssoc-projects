@@ -107,10 +107,10 @@ export default function Projects() {
                   <span className="font-bold">Latest PR Merged At:</span> {new Date(project.LastPRMergedAt).toLocaleString()}
                 </p>
                 <p className="text-gray-600 mb-1">
-                  <span className="font-bold">Open Issues:</span> {project.OpenIssueCount}
+                  <span className="font-bold">Open Issues:</span> {project.OpenIssueCount - project.OpenPRCount}
                 </p>
                 <p className="text-gray-600 mb-1">
-                  <span className="font-bold">Open PRs:</span> {project.OpenPRCount}
+                  <span className="font-bold">Open PRs:</span> {project.OpenPRCount < 100 ? project.OpenPRCount : "> 100"}
                 </p>
                 <p>
                   {badgeStyles.map((badge, index) => {
