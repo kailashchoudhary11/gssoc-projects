@@ -62,7 +62,7 @@ const Cards = () => {
   ];
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch('https://golang-main-symbiosis-uni-00b7344c.koyeb.app/projects/all');
+      const response = await fetch(import.meta.env.VITE_BASE_URL);
       if (!response.ok) {
         throw new Error('Something went wrong');
       }
