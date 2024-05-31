@@ -48,7 +48,7 @@ func getOpenIssuesCount(projectLink string, githubClient *github.Client) uint16 
 	return uint16(*repo.OpenIssuesCount)
 }
 
-func latestMergedPRTime(projectLink string, githubClient *github.Client) time.Time {
+func getPRDetails(projectLink string, githubClient *github.Client) (time.Time, uint16) {
 	client := initializers.GithubClient
 	if githubClient != nil {
 		client = githubClient
@@ -57,14 +57,14 @@ func latestMergedPRTime(projectLink string, githubClient *github.Client) time.Ti
 	projectDetails, err := getProjectDetails(projectLink)
 	if err != nil {
 		fmt.Println(err)
-		return maxTime
+		return maxTime, 0
 	}
 
 	opts := &github.PullRequestListOptions{State: "closed", Sort: "updated", Direction: "desc"}
 	prs, _, err := client.PullRequests.List(context.Background(), projectDetails.owner, projectDetails.repoName, opts)
 	if err != nil {
 		fmt.Println(err)
-		return maxTime
+		return maxTime, 0
 	}
 
 	for _, pr := range prs {
@@ -73,7 +73,7 @@ func latestMergedPRTime(projectLink string, githubClient *github.Client) time.Ti
 		}
 	}
 
-	return maxTime
+	return maxTime, uint16(len(prs))
 }
 
 func UpdateProjects(githubClient *github.Client) []models.Project {
@@ -83,7 +83,9 @@ func UpdateProjects(githubClient *github.Client) []models.Project {
 		log.Fatal("Unable to fetch projects")
 	}
 	for _, project := range projects {
-		project.LastPRMergedAt = latestMergedPRTime(project.GithubLink, githubClient)
+		latestMergedPRTime, PRCount := getPRDetails(project.GithubLink, githubClient)
+		project.LastPRMergedAt = latestMergedPRTime
+		project.OpenPRCount = PRCount
 		project.OpenIssueCount = getOpenIssuesCount(project.GithubLink, githubClient)
 		fmt.Println("The latest merged PR time is", project.LastPRMergedAt)
 		fmt.Println("Number of open issues count", project.OpenIssueCount)
