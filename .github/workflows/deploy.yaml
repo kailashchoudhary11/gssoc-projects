@@ -28,5 +28,5 @@ jobs:
           service-routes: "/:8000"
           skip-cache: true
           git-workdir: server
+          service-regions: "was"
           service-instance-type: free
-          service-regions: was
