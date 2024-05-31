@@ -40,7 +40,7 @@ func getOpenIssuesCount(projectLink string, githubClient *github.Client) uint16 
 
 	repo, _, err := client.Repositories.Get(context.Background(), projectDetails.owner, projectDetails.repoName)
 	if err != nil {
-		log.Fatal("Error in fetching Pull requests", err)
+		return 0
 	}
 
 	return uint16(*repo.OpenIssuesCount)
@@ -60,7 +60,7 @@ func latestMergedPRTime(projectLink string, githubClient *github.Client) time.Ti
 	opts := &github.PullRequestListOptions{State: "closed", Sort: "updated", Direction: "desc"}
 	prs, _, err := client.PullRequests.List(context.Background(), projectDetails.owner, projectDetails.repoName, opts)
 	if err != nil {
-		log.Fatal("Error in fetching Pull requests", err)
+		return maxTime
 	}
 
 	for _, pr := range prs {
