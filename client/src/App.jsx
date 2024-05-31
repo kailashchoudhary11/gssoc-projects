@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
 import './App.css'
-import GitHubLogin from './GitHubLogin';
-import Cards from './project-section/Cards';
+import GitHubLogin from './components/GitHubLogin'
+import Projects from './components/Projects'
 
 function App() {
 
   return (
-    <div>
-      <GitHubLogin />
-      <Cards />
+    <div className='flex p-5 flex-col'>
+      <div>
+        <GitHubLogin />
+      </div>
+      <Projects />
     </div>
   )
 }

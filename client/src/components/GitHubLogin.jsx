@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import axios from 'axios';
+import { BASE_URL } from '../constants/baseUrl';
 
-const GitHubLogin = () => {
+export default function GitHubLogin() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
@@ -14,9 +15,8 @@ const GitHubLogin = () => {
 
   const initiateGitHubOAuth = async () => {
     try {
-      const response = await axios.get('https://golang-main-symbiosis-uni-00b7344c.koyeb.app/github/login');
+      const response = await axios.get(`${BASE_URL}/github/login`);
       const { url } = response.data;
-      // Open the GitHub OAuth consent screen in a new window or tab
       window.open(url);
     } catch (error) {
       console.error('Error initiating GitHub OAuth:', error);
@@ -25,11 +25,7 @@ const GitHubLogin = () => {
 
   const exchangeCodeForToken = async (code) => {
     try {
-      const response = await axios.get(`https://golang-main-symbiosis-uni-00b7344c.koyeb.app/github/callback?code=${code}`);
-      // Handle the response from the backend (access token or user information)
-      const { token, user } = response.data;
-      // Store the token or user information in the state or local storage
-      // Redirect the user or update the UI accordingly
+      axios.get(`${BASE_URL}/github/callback?code=${code}`);
     } catch (error) {
       console.error('Error exchanging code for token:', error);
     }
@@ -46,4 +42,3 @@ const GitHubLogin = () => {
   );
 };
 
-export default GitHubLogin;
