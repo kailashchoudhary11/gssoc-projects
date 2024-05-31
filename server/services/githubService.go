@@ -83,7 +83,7 @@ func UpdateProjects(githubClient *github.Client) []models.Project {
 		project.OpenIssueCount = getOpenIssuesCount(project.GithubLink, githubClient)
 		fmt.Println("The latest merged PR time is", project.LastPRMergedAt)
 		initializers.DATABASE.Save(project)
-		time.Sleep(time.Millisecond * 2)
+		time.Sleep(time.Millisecond * 100)
 	}
 	return projects
 }
