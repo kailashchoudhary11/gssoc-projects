@@ -25,7 +25,7 @@ const GitHubLogin = () => {
 
   const exchangeCodeForToken = async (code) => {
     try {
-      const response = await axios.get(`https://golang-main-symbiosis-uni-00b7344c.koyeb.app/callback?code=${code}`);
+      const response = await axios.get(`https://golang-main-symbiosis-uni-00b7344c.koyeb.app/github/callback?code=${code}`);
       // Handle the response from the backend (access token or user information)
       const { token, user } = response.data;
       // Store the token or user information in the state or local storage
