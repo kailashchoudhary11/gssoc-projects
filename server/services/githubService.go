@@ -60,7 +60,7 @@ func getPRDetails(projectLink string, githubClient *github.Client) (time.Time, u
 		return maxTime, 0
 	}
 
-	opts := &github.PullRequestListOptions{State: "closed", Sort: "updated", Direction: "desc", ListOptions: github.ListOptions{PerPage: 100}}
+	opts := &github.PullRequestListOptions{State: "closed", ListOptions: github.ListOptions{PerPage: 100}}
 	prs, _, err := client.PullRequests.List(context.Background(), projectDetails.owner, projectDetails.repoName, opts)
 	if err != nil {
 		fmt.Println(err)
