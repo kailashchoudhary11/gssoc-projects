@@ -35,11 +35,13 @@ func getOpenIssuesCount(projectLink string, githubClient *github.Client) uint16 
 	}
 	projectDetails, err := getProjectDetails(projectLink)
 	if err != nil {
+		fmt.Println(err)
 		return 0
 	}
 
 	repo, _, err := client.Repositories.Get(context.Background(), projectDetails.owner, projectDetails.repoName)
 	if err != nil {
+		fmt.Println(err)
 		return 0
 	}
 
@@ -54,12 +56,14 @@ func latestMergedPRTime(projectLink string, githubClient *github.Client) time.Ti
 	maxTime := time.Date(2024, 5, 10, 10, 0, 0, 0, time.UTC)
 	projectDetails, err := getProjectDetails(projectLink)
 	if err != nil {
+		fmt.Println(err)
 		return maxTime
 	}
 
 	opts := &github.PullRequestListOptions{State: "closed", Sort: "updated", Direction: "desc"}
 	prs, _, err := client.PullRequests.List(context.Background(), projectDetails.owner, projectDetails.repoName, opts)
 	if err != nil {
+		fmt.Println(err)
 		return maxTime
 	}
 
@@ -82,6 +86,7 @@ func UpdateProjects(githubClient *github.Client) []models.Project {
 		project.LastPRMergedAt = latestMergedPRTime(project.GithubLink, githubClient)
 		project.OpenIssueCount = getOpenIssuesCount(project.GithubLink, githubClient)
 		fmt.Println("The latest merged PR time is", project.LastPRMergedAt)
+		fmt.Println("Number of open issues count", project.OpenIssueCount)
 		initializers.DATABASE.Save(project)
 		time.Sleep(time.Millisecond)
 	}
