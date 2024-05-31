@@ -5,6 +5,7 @@ const Cards = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [sortAscDscOption,setSortAscDscOption] = useState(null);
   
   const badgeStyles = [
     { name: 'ReactJs', style: 'bg-blue-400 text-blue-800' },
@@ -61,7 +62,7 @@ const Cards = () => {
   ];
   const fetchData = useCallback(async () => {
     try {
-      const response = await fetch('https://golang-main-symbiosis-uni-00b7344c.koyeb.app/projects/all');
+      const response = await fetch(import.meta.env.VITE_BASE_URL);
       if (!response.ok) {
         throw new Error('Something went wrong');
       }
@@ -94,6 +95,20 @@ const Cards = () => {
     { value: 'sortOnTheBasisOfIssueCount', label: 'Issue Count' },
     {value: 'lastPRMergedTime',label: 'Last PR Merged'}
   ];
+  const options2 = [
+    {value: 'descending',label:'Sort'}
+  ]
+  const handleAscDsc=(sortAscDscOption)=>{
+    setSortAscDscOption(sortAscDscOption);
+    let sortedData;
+    if(sortAscDscOption.value==='ascending'){
+      sortedData = data.sort()
+    }
+    else if(sortAscDscOption.value==='descending'){
+      sortedData = data.sort().reverse();
+    }
+    setData(sortedData);
+  }
   const handleSort = (selectedOption) => {
     setSelectedOption(selectedOption);
     let sortedData;
@@ -111,11 +126,18 @@ const Cards = () => {
   };
   return (
     <div className="container px-5 py-24 mx-auto">
+      <div className="flex">
       <Select 
         options={options}
         defaultValue={selectedOption}
         onChange={handleSort}
       />
+      <Select
+        options={options2}
+        defaultValue={sortAscDscOption}
+        onChange={handleAscDsc}
+      />
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
