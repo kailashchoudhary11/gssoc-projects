@@ -29,3 +29,4 @@ jobs:
           skip-cache: true
           git-workdir: server
           service-instance-type: free
+          service-regions: was
