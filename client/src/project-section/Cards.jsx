@@ -1,8 +1,11 @@
 import { useEffect, useState,useCallback } from "react";
+import Select from 'react-select'
 
 const Cards = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedOption, setSelectedOption] = useState(null);
+  
   const badgeStyles = [
     { name: 'ReactJs', style: 'bg-blue-400 text-blue-800' },
     { name: 'WebGL', style: 'bg-green-400 text-green-800' },
@@ -74,10 +77,38 @@ const Cards = () => {
   }, []); 
   useEffect(() => {
     fetchData();
-  }, [data, fetchData]);
+  }, []);
 
+  // Sorting cards on the basis of pr count issue count
+  const sortOnTheBasisOfPRCount=(a,b)=>{
+    return (b.OpenPRCount - a.OpenPRCount);
+  }
+  const sortOnTheBasisOfIssueCount=(a,b)=>{
+    return (b.OpenIssueCount - a.OpenIssueCount);
+  }
+  const options = [
+    { value: 'sortOnTheBasisOfPRCount', label: 'PR Count' },
+    { value: 'sortOnTheBasisOfIssueCount', label: 'Issue Count' },
+  ];
+  const handleSort = (selectedOption) => {
+    setSelectedOption(selectedOption);
+    let sortedData;
+
+    if (selectedOption.value === 'sortOnTheBasisOfPRCount') {
+        sortedData = data.sort(sortOnTheBasisOfPRCount)
+    } else if (selectedOption.value === 'sortOnTheBasisOfIssueCount') {
+        sortedData = data.sort(sortOnTheBasisOfIssueCount);
+    }
+
+    setData(sortedData);
+  };
   return (
     <div className="container px-5 py-24 mx-auto">
+      <Select 
+        options={options}
+        defaultValue={selectedOption}
+        onChange={handleSort}
+      />
       {loading ? (
         <p>Loading...</p>
       ) : (
