@@ -28,12 +28,22 @@ func getProjectDetails(projectLink string) (ProjectDetail, error) {
 	return projectDetail, nil
 }
 
-func ListRepoIssues() {
-	issues, _, err := initializers.GithubClient.Issues.ListByRepo(context.Background(), "kailashchoudhary11", "steganohide", nil)
-	if err != nil {
-		log.Fatal("Error in fetching issues")
+func getOpenIssuesCount(projectLink string, githubClient *github.Client) uint16 {
+	client := initializers.GithubClient
+	if githubClient != nil {
+		client = githubClient
 	}
-	fmt.Println("Issues are: ", issues)
+	projectDetails, err := getProjectDetails(projectLink)
+	if err != nil {
+		return 0
+	}
+
+	repo, _, err := client.Repositories.Get(context.Background(), projectDetails.owner, projectDetails.repoName)
+	if err != nil {
+		log.Fatal("Error in fetching Pull requests", err)
+	}
+
+	return uint16(*repo.OpenIssuesCount)
 }
 
 func latestMergedPRTime(projectLink string, githubClient *github.Client) time.Time {
@@ -70,8 +80,10 @@ func UpdateProjects(githubClient *github.Client) []models.Project {
 	}
 	for _, project := range projects {
 		project.LastPRMergedAt = latestMergedPRTime(project.GithubLink, githubClient)
+		project.OpenIssueCount = getOpenIssuesCount(project.GithubLink, githubClient)
 		fmt.Println("The latest merged PR time is", project.LastPRMergedAt)
 		initializers.DATABASE.Save(project)
+		time.Sleep(time.Millisecond * 2)
 	}
 	return projects
 }
