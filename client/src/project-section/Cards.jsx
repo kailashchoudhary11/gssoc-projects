@@ -86,9 +86,13 @@ const Cards = () => {
   const sortOnTheBasisOfIssueCount=(a,b)=>{
     return (b.OpenIssueCount - a.OpenIssueCount);
   }
+  const lastPRMergedTime=(a,b)=>{
+    return (new Date(b.LastPRMergedAt) - new Date(a.LastPRMergedAt));
+  }
   const options = [
     { value: 'sortOnTheBasisOfPRCount', label: 'PR Count' },
     { value: 'sortOnTheBasisOfIssueCount', label: 'Issue Count' },
+    {value: 'lastPRMergedTime',label: 'Last PR Merged'}
   ];
   const handleSort = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -98,6 +102,9 @@ const Cards = () => {
         sortedData = data.sort(sortOnTheBasisOfPRCount)
     } else if (selectedOption.value === 'sortOnTheBasisOfIssueCount') {
         sortedData = data.sort(sortOnTheBasisOfIssueCount);
+    }
+    else if(selectedOption.value==='lastPRMergedTime'){
+      sortedData = data.sort(lastPRMergedTime);
     }
 
     setData(sortedData);
