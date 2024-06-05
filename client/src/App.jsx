@@ -21,9 +21,13 @@ function App() {
   };
 
   useEffect(() => {
-    document.querySelector('html').classList.remove('dark', 'light');
-    document.querySelector('html').classList.add(themeMode);
+    const htmlElement = document.querySelector('html');
+    if (htmlElement) {
+      htmlElement.classList.remove('dark', 'light');
+      htmlElement.classList.add(themeMode);
+    }
   }, [themeMode]);
+  
 
   useEffect(() => {
     const octokit = new Octokit({
@@ -52,7 +56,7 @@ function App() {
 
   return (
     <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
-      <div className='flex p-5 gap-5 flex-col'>
+      <div className='flex p-5 gap-5 flex-col dark:bg-gray-900 bg-white text-black dark:text-white'>
         <div className='flex justify-between items-center'>
           <GitHubLogin />
           <button type="button" className="flex justify-center items-center text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">

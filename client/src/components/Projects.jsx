@@ -81,7 +81,7 @@ export default function Projects() {
           Login with GitHub to get the latest updated data.
         </div>
       }
-      <div className="flex space-x-4 py-5 w-[50%] bg-gray-100 rounded-lg shadow-md">
+      <div className="flex space-x-4 py-5 w-[50%] bg-gray-100 rounded-lg shadow-md ">
         <Select
           options={options}
           defaultValue={selectedOption}
@@ -98,18 +98,18 @@ export default function Projects() {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
           {data.map((project) => (
             <a href={project.project_link} target="_blank">
-              <div key={project.ID} className="border border-amber-600 p-4 rounded-lg shadow-lg h-fit overflow-auto">
+              <div key={project.ID} className="border border-amber-600 p-4 rounded-lg shadow-lg h-fit overflow-auto ">
                 <h1 className="text-xl font-semibold mb-2">{project.project_name}</h1>
-                <p className="text-gray-600 mb-1">
+                <p className="text-gray-600 dark:text-gray-400 mb-1">
                   <span className="font-bold">Latest PR Merged At:</span> {new Date(project.LastPRMergedAt).toLocaleString()}
                 </p>
-                <p className="text-gray-600 mb-1">
+                <p className="text-gray-600 dark:text-gray-400 mb-1">
                   <span className="font-bold">Open Issues:</span> {project.OpenIssueCount - project.OpenPRCount}
                 </p>
-                <p className="text-gray-600 mb-1">
+                <p className="text-gray-600 dark:text-gray-400 mb-1">
                   <span className="font-bold">Open PRs:</span> {project.OpenPRCount < 100 ? project.OpenPRCount : "> 100"}
                 </p>
                 <p>
