@@ -2,7 +2,7 @@ import './App.css';
 import GitHubLogin from './components/GitHubLogin';
 import Projects from './components/Projects';
 import ThemeButton from './components/ThemeButton';
-import { VITE_GH_TOKEN, VITE_REPO_OWNER, VITE_REPO_NAME } from './constants/baseUrl';
+import { VITE_GH_TOKEN } from './constants/baseUrl';
 import { Octokit } from "@octokit/core";
 import { useState, useEffect } from "react";
 import { IoStarSharp } from "react-icons/io5";
@@ -37,8 +37,8 @@ function App() {
     const getStars = async () => {
       try {
         const response = await octokit.request('GET /repos/{owner}/{repo}', {
-          owner: VITE_REPO_OWNER,
-          repo: VITE_REPO_NAME,
+          owner: "kailashchoudhary11",
+          repo: "gssoc-projects",
           headers: {
             'X-GitHub-Api-Version': '2022-11-28'
           }
