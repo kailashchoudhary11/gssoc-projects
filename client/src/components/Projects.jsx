@@ -76,23 +76,23 @@ export default function Projects() {
   return (
     <div className="flex flex-col justify-center">
       {
-        data && data.length > 0 && <div className="p-4 bg-blue-200 text-blue-900 rounded-md shadow-md text-lg">
+        data && data.length > 0 && <div className="p-4 bg-blue-200 dark:bg-blue-800 dark:text-blue-200 text-blue-900 rounded-md shadow-md text-lg text-center">
           Data was last updated at {(new Date(data[0].UpdatedAt)).toLocaleString()}.
           Login with GitHub to get the latest updated data.
         </div>
       }
-      <div className="flex space-x-4 py-5 w-[50%] bg-gray-100 rounded-lg shadow-md ">
+      <div className="flex space-x-4 py-5 w-[50%] dark:bg-gray-900 rounded-lg dark:text-gray-900">
         <Select
           options={options}
           defaultValue={selectedOption}
           onChange={handleSort}
-          className="w-1/2 p-2 border border-gray-300 rounded"
+          className="w-1/2 p-2 border border-gray-200 rounded"
         />
         <Select
           options={options2}
           defaultValue={sortAscDscOption}
           onChange={handleAscDsc}
-          className="w-1/2 p-2 border border-gray-300 rounded"
+          className="w-1/2 p-2 border border-gray-200 rounded"
         />
       </div>
       {loading ? (

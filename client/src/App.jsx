@@ -65,9 +65,9 @@ function App() {
           <ThemeButton />
         </div>
         <Projects />
-        <footer className="p-4 bg-blue-200 text-blue-900 rounded-md shadow-md text-lg">
+        <footer className="p-4 bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200 rounded-md shadow-md text-lg">
           <div className="container mx-auto text-center">
-            <p className="text-sm">
+            <p className="text-lg">
               Projects data is copied from the official GSSoC site.
             </p>
           </div>
